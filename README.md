@@ -1,4 +1,4 @@
-# Interview-Cake Tutorial  
+Interview-Cake Tutorial  
 *Solutions to Interview Cake questions.
 
 ##Method
