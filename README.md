@@ -15,7 +15,7 @@
 
 
 ## **:bar_chart: Optimize**
-### 0. Question what should be optimized. *(time or space)*
+#### 0. Question what should be optimized. *(time or space)*
 * efficency depends on the situation. Use expected characteristics of the input as a reference to what needs optimization
 #### 1. [Tips to Optimize your Python Code](https://www.techbeamers.com/python-code-optimization-tips-tricks/#h6)
 #### 2. Use Greedy Approach
@@ -23,7 +23,7 @@
 * Use this approach to **break down the question**
 * **NOTE** A Greedy Algorithm doesn't garuntee the best solution, so keep that in mind.
 * Include all possible input cases **(Edge Cases)**
-### 3. Try a Dynamic Programming Approach
+#### 3. Try a Dynamic Programming Approach
 
 
 ## :dizzy: Try these tips if you get stuck on a problem
