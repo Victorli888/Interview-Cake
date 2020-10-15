@@ -9,11 +9,11 @@ Task:
 1. Takes a list of unsorted scores & the highest possible score in a game and returns a sorted list.
 2. The sorted list should be faster than O(n lg(n) )
 """
-
+import unittest
 
 def super_sort(unsorted, hps):  # unsorted scores, highest possible score
 
-    score_count = [0] + (hps + 1)
+    score_count = [0] * (hps + 1)
 
     # Populate score_counts
     for score in unsorted:
@@ -32,3 +32,35 @@ def super_sort(unsorted, hps):  # unsorted scores, highest possible score
             sorted_scores.append(score)
 
     return sorted_scores
+
+
+class Test(unittest.TestCase):
+
+    def test_no_scores(self):
+        actual = super_sort([], 100)
+        expected = []
+        self.assertEqual(actual, expected)
+
+    def test_one_score(self):
+        actual = super_sort([55], 100)
+        expected = [55]
+        self.assertEqual(actual, expected)
+
+    def test_two_scores(self):
+        actual = super_sort([30, 60], 100)
+        expected = [60, 30]
+        self.assertEqual(actual, expected)
+
+    def test_many_scores(self):
+        actual = super_sort([37, 89, 41, 65, 91, 53], 100)
+        expected = [91, 89, 65, 53, 41, 37]
+        self.assertEqual(actual, expected)
+
+    def test_repeated_scores(self):
+        actual = super_sort([20, 10, 30, 30, 10, 20], 100)
+        expected = [30, 30, 20, 20, 10, 10]
+        self.assertEqual(actual, expected)
+
+
+unittest.main(verbosity=2)
+
