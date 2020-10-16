@@ -8,14 +8,18 @@ fast enough. You need a faster sorting algorithm.
 Task:
 1. Takes a list of unsorted scores & the highest possible score in a game and returns a sorted list.
 2. The sorted list should be faster than O(n lg(n) )
+
+Our Soultion: uses the counting sort method; O(n+k) time complexity and O(n) space complexity
+O(n+k) simplfies to O(n) time complexity
 """
 import unittest
 
 def super_sort(unsorted, hps):  # unsorted scores, highest possible score
-
+    # counting sort -- (O(n+k))
+    # Populate array for score count
     score_count = [0] * (hps + 1)
 
-    # Populate score_counts
+    # count score_counts
     for score in unsorted:
         score_count[score] += 1
 
@@ -23,11 +27,11 @@ def super_sort(unsorted, hps):  # unsorted scores, highest possible score
     sorted_scores = []
 
     # For each item in score
-    for score in range(len(score_count) - 1, -1, -1):
+    for score in range(len(score_count) - 1, -1, -1):  # starting from the largest score
         count = score_count[score]
 
         # For the number of times the item occurs
-        for time in range(count):
+        for times in range(count):
             # add it to the sorted list
             sorted_scores.append(score)
 
