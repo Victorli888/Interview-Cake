@@ -22,7 +22,7 @@ same time step (at least 1 minute must pass).
 
 
 def get_max_profit_1(prices):
-    # keep track of max
+    # assign a max profit variable to
     max_profit = 0
 
     # iterate through list of prices, keep track of index, too
@@ -34,3 +34,44 @@ def get_max_profit_1(prices):
                 max_profit = profit
 
     return max_profit
+
+# Analysis:
+# Runtime O(n) to run through buy_prices, and O(n-1) for sell prices.
+# Still O(n^2) for nested loop.
+
+
+# Solution 2:
+def get_max_profit_2(prices):
+    """Returns the maximum profit
+
+    >>> get_max_profit_3([10, 7, 5, 8, 11, 9])
+    6
+
+    """
+    # instantiate variables to track min price, max profit
+    min_price = prices[0]
+    max_profit = 0
+
+    # iterate over list ONCE
+    for price in prices:
+        # make sure we're buying at the lowest price we've seen so far
+        if price < min_price:
+            min_price = price
+        # or: min_price = min(min_price, price)
+        # calculate potential profit from current price
+        profit = price - min_price
+        # keep track of profit
+        if profit > max_profit:
+            max_profit = profit
+        # or: max_profit = max(max_profit, profit)
+
+    return max_profit
+
+# Analysis:
+# Runtime is O(n) b/c we go through the list only once.
+
+
+
+
+
+
