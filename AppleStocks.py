@@ -68,52 +68,96 @@ def get_max_profit_2(prices):
 
 def get_max_profit_3(prices):
     min_price = prices[0]
-    max_price = prices[1]
+    max_price = prices[0]
+    if len(prices) <= 1:  # Edge Case 2
+        raise ValueError("Evaluating profit requires atleast 2 data points")
+
 
     for price in prices:
         min_price = min(price, min_price)
         max_price = max(price, max_price)
 
     profit = max_price - min_price
+    if profit <= 0:
+        print(f"We shouldn't trade because profit is: {profit}")
+    return profit
+
+# Analysis:
+# Runtime is O(n) b/c we go through the list only once.
+# Spacetime is O(1) we use existing array "prices" to work with
+
+"""
+EDGE CASES:
+1. Negative profit - meaning that share prices only went down (we shouldn't sell)
+2. Only 1 data point - we can't find profit with only one data point
+"""
+
+
+def get_max_profit_4(prices):  # Solve Edge Case 1
+
+    if len(prices) <= 1:  # Edge Case 2
+        raise ValueError("Evaluating profit requires atleast 2 data points")
+
+    # min price will be the first price of the day. max_profit will be the first profit we can calculate
+    min_price = prices[0]
+    max_price = prices[1]
+    max_profit = prices[1] - prices[0]
+
+    # calculate and roll through to find current profits of stock prices
+    for price in prices:
+        min_price = min(min_price, price)
+        max_price = max(max_price, price)
+        profit = max_price - min_price
+
+    if max_price == prices[0]:  # if max price is the maximum it means the stock price has only gone down. (Edge case 2)
+        print(f"Do not sell today because max profit is {max_profit}")
+        return max_profit
+    print("We should sell.")
     return profit
 
 
+
+ans = get_max_profit_4([9, 7, 4, 1])
+print(ans)
+
+
 # Tests
+
 import unittest
 class Test(unittest.TestCase):
 
     def test_price_goes_up_then_down(self):
-        actual = get_max_profit_3([1, 5, 3, 2])
+        actual = get_max_profit_4([1, 5, 3, 2])
         expected = 4
         self.assertEqual(actual, expected)
 
     def test_price_goes_down_then_up(self):
-        actual = get_max_profit_3([7, 2, 8, 9])
+        actual = get_max_profit_4([7, 2, 8, 9])
         expected = 7
         self.assertEqual(actual, expected)
 
     def test_price_goes_up_all_day(self):
-        actual = get_max_profit_3([1, 6, 7, 9])
+        actual = get_max_profit_4([1, 6, 7, 9])
         expected = 8
         self.assertEqual(actual, expected)
 
     def test_price_goes_down_all_day(self):
-        actual = get_max_profit_3([9, 7, 4, 1])
+        actual = get_max_profit_4([9, 7, 4, 1])
         expected = -2
         self.assertEqual(actual, expected)
 
     def test_price_stays_the_same_all_day(self):
-        actual = get_max_profit_3([1, 1, 1, 1])
+        actual = get_max_profit_4([1, 1, 1, 1])
         expected = 0
         self.assertEqual(actual, expected)
 
     def test_error_with_empty_prices(self):
         with self.assertRaises(Exception):
-            get_max_profit_3([])
+            get_max_profit_4([])
 
     def test_error_with_one_price(self):
         with self.assertRaises(Exception):
-            get_max_profit_3([1])
+            get_max_profit_4([1])
 
 
 unittest.main(verbosity=2)
