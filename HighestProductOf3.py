@@ -3,31 +3,31 @@ Given a list_of_ints, find the highest_product you can get from three of the int
 The input list_of_ints will always have at least three integers.
 """
 
-# Brute Force  sort through all the numbers, take 3, and pop the rest
-
-# Solution 1: Brute force
-def highest_product(arr):
-    """Returns the highest product
-
-    >>> highest_product([1, 2, 3, 4, 5])
+# Solution 1: Brute force,  sort through all the numbers, take 3, and pop the rest
+"""
+Returns the highest product
+    >>> hp3_1([2,4,5,1,3)
     60
-
-    """
-
+"""
+def hp3_1(arr):  # highest product of 3 method 1
+    arr = sorted(arr)
+    arr = arr[:1:-1]    # [start:stop:step]
     product = 1
-
-    for i in range(3):
-        # find the max value in the list, get the index, pop it, and mulitply
-        product *= arr.pop(arr.index(max(arr)))
-
+    for index in arr:
+        product *= index
     return product
 
+
+
 # Analysis:
-# Runtime is O(3n) --> O(n). I bet we can do better...
+# Runtime is O(3n) --> O(n). butt we can do better...
 # Space is constant
 
 
 
-d = 1,2,3,4,5
+d = 2,4,5,1,3
 
-hp3_1(d)
+ans = hp3_1(d)
+print(ans)  # 60
+
+
