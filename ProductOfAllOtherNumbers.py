@@ -66,9 +66,46 @@ def get_products_2(arr):
 
     return output
 
-# Analysis: O(n)
+# Analysis: Time Complexity O(2n) -> O(n)  space complexity: O(2n) -> O(n)
 
-test = [1,7,3,4]
+# Solution 3: Testing for Edge Cases
+# 1) If only one number? ( you can't find the product of one number) you can but there's no meaning behind it
+# 2) Any Zeros? Well, the only number that wouldn't be zero should be that index
 
-ans = get_products_1(test)
+def get_products_3(arr):
+
+    # Edge case 1: array that only contains one integer
+    if len(arr) < 2:
+        raise Exception("Can't Multiply with only one number")
+
+    # Make an array to store products, this will be our output
+    output = []
+
+    # Start at product = 1 for the 0th index
+    product = 1
+    # loop over indices in the array
+    for index in range(len(arr)):
+        # append the running product to the output list, starting at 1
+        output.append(product)
+        # increment the product to include the value at the current integer
+        product *= arr[index]
+
+    # Re-initialize the product at 1 to find the products of integers after index
+    product = 1
+    # Loop backwards over indices to calculate products of integers AFTER
+    for index in range(len(arr)-1,-1,-1):
+        # First, multiply the current value (all products BEFORE index) by current product of all integers afterward
+        output[index] *= product
+        # Then, increment product to include the value at current index
+        product *= arr[index]
+
+    return output
+
+
+# Analysis: Time Complexity: O(2n) -> O(n) Space Complexity: O(n)
+
+test = [1,0,3]
+
+
+ans = get_products_3(test)
 print(ans)
