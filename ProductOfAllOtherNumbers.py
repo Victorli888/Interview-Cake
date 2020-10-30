@@ -36,8 +36,6 @@ def get_products_1(arr):  # given array
 # Analysis: Space: O(n)  Time: O(n^2)   --- very no good :/
 
 
-
-
 # Solution 2: keep track of all prior calculations; (memorization)
 def get_products_2(arr):
 
@@ -81,7 +79,7 @@ def get_products_3(arr):
     # Make an array to store products, this will be our output
     output = []
 
-    # Start at product = 1 for the 0th index
+    # Start at product = 1 for the 0th index (This is our running product)
     product = 1
     # loop over indices in the array
     for index in range(len(arr)):
@@ -93,7 +91,7 @@ def get_products_3(arr):
     # Re-initialize the product at 1 to find the products of integers after index
     product = 1
     # Loop backwards over indices to calculate products of integers AFTER
-    for index in range(len(arr)-1,-1,-1):
+    for index in range(len(arr)-1, -1, -1):
         # First, multiply the current value (all products BEFORE index) by current product of all integers afterward
         output[index] *= product
         # Then, increment product to include the value at current index
@@ -104,8 +102,55 @@ def get_products_3(arr):
 
 # Analysis: Time Complexity: O(2n) -> O(n) Space Complexity: O(n)
 
-test = [1,0,3]
+test = [1,7,3,4]
 
 
 ans = get_products_3(test)
 print(ans)
+
+
+# Tests
+import unittest
+
+class Test(unittest.TestCase):
+
+    def test_small_list(self):
+        actual = get_products_3([1, 2, 3])
+        expected = [6, 3, 2]
+        self.assertEqual(actual, expected)
+
+    def test_longer_list(self):
+        actual = get_products_3([8, 2, 4, 3, 1, 5])
+        expected = [120, 480, 240, 320, 960, 192]
+        self.assertEqual(actual, expected)
+
+    def test_list_has_one_zero(self):
+        actual = get_products_3([6, 2, 0, 3])
+        expected = [0, 0, 36, 0]
+        self.assertEqual(actual, expected)
+
+    def test_list_has_two_zeros(self):
+        actual = get_products_3([4, 0, 9, 1, 0])
+        expected = [0, 0, 0, 0, 0]
+        self.assertEqual(actual, expected)
+
+    def test_one_negative_number(self):
+        actual = get_products_3([-3, 8, 4])
+        expected = [32, -12, -24]
+        self.assertEqual(actual, expected)
+
+    def test_all_negative_numbers(self):
+        actual = get_products_3([-7, -1, -4, -2])
+        expected = [-8, -56, -14, -28]
+        self.assertEqual(actual, expected)
+
+    def test_error_with_empty_list(self):
+        with self.assertRaises(Exception):
+            get_products_3([])
+
+    def test_error_with_one_number(self):
+        with self.assertRaises(Exception):
+            get_products_3([1])
+
+
+unittest.main(verbosity=2)
