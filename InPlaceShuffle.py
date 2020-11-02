@@ -32,7 +32,30 @@ def naive_shuffle(arr):
 
 # This solution is naive because this method doesn't return a uniform solution
 
-test = [1,2,3,4,5,6,7,8,9]
-print(f"We want to shuffle: {test}")
-ans = naive_shuffle(test)
-print(f"Our array now looks like: {ans}")
+# Using the same get_rando() function we generate a better method to shuffling in-place
+def better_shuffle(arr):
+    # If it's 1 or 0 items just return
+    if len(arr) <= 1:
+        return arr
+
+    last_index = len(arr)-1
+
+    # navigate through from beginning to end
+    for curr_index in range(0, len(arr)-1):
+        # choose a random index
+        random_index = get_rando(curr_index, last_index)
+
+        # Place that random index in the spot we are swapping
+        if random_index != curr_index:
+            arr[curr_index], arr[random_index] = arr[random_index], arr[curr_index]
+
+# This algorthim is derieved from Fisher-Yates shuffle
+# Analysis: Time Complexity: O(n) Space Complexity: O(1)
+
+sample_list = [1, 2, 3, 4, 5]
+print('Sample list:', sample_list)
+
+print('Shuffling sample list...')
+naive_shuffle(sample_list)
+print(sample_list)
+
