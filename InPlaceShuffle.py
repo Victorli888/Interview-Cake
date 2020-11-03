@@ -31,6 +31,9 @@ def naive_shuffle(arr):
     return arr
 
 # This solution is naive because this method doesn't return a uniform solution
+# Take for example arr = [A,B,C] we allow 3 indices to swap from 3 choices for 3 calls (3*3*3=27)
+# However, there are only 6 possible outcomes for how to arrange [A,B,C] (3!=3*2*1)
+# 27 is not evenly divisible 6, so our 6 outcomes will be possible with more sets of choices than others.
 
 # Using the same get_rando() function we generate a better method to shuffling in-place
 def better_shuffle(arr):
@@ -56,6 +59,6 @@ sample_list = [1, 2, 3, 4, 5]
 print('Sample list:', sample_list)
 
 print('Shuffling sample list...')
-naive_shuffle(sample_list)
+better_shuffle(sample_list)
 print(sample_list)
 
