@@ -5,32 +5,69 @@ Write a Function for finding the index of the "rotation point"
 """
 
 
-def frp(words):  # Find_Rotation_Point
+import unittest
+
+def frp(words):
     first_word = words[0]
-    floor_idx = 0
+    floor_index = 0
+    ceiling_index = len(words) - 1
 
-    ceiling_idx = len(words) - 1
-
-    while floor_idx < ceiling_idx:
-        # Guess a index halfway between floor and ceiling
-        guess_idx = floor_idx + ((ceiling_idx - floor_idx) // 2)
+    while floor_index < ceiling_index:
+        # Guess a point halfway between floor and ceiling
+        guess_index = floor_index + ((ceiling_index - floor_index) // 2)
 
         # If guess comes after first word or is the first word
-
-        if words[guess_idx] >= first_word:
-            # move right
-            floor_idx = guess_idx
-
+        if words[guess_index] >= first_word:
+            # Go right
+            floor_index = guess_index
         else:
             # Go left
-            ceiling_idx = guess_idx
+            ceiling_index = guess_index
 
         # If floor and ceiling have converged
-        if floor_idx + 1 == ceiling_idx:
-            # Between foor and ceiling is where we flipped to the beginning
+        if floor_index + 1 == ceiling_index:
+            # Between floor and ceiling is where we flipped to the beginning
             # so ceiling is alphabetically first
-            return ceiling_idx
+            return ceiling_index
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Tests
+
+class Test(unittest.TestCase):
+
+    def test_small_list(self):
+        actual = frp(['cape', 'cake'])
+        expected = 1
+        self.assertEqual(actual, expected)
+
+    def test_medium_list(self):
+        actual = frp(['grape', 'orange', 'plum',
+                                      'radish', 'apple'])
+        expected = 4
+        self.assertEqual(actual, expected)
+
+    def test_large_list(self):
+        actual = frp(['ptolemaic', 'retrograde', 'supplant',
+                                      'undulate', 'xenoepist', 'asymptote',
+                                      'babka', 'banoffee', 'engender',
+                                      'karpatka', 'othellolagkage'])
+        expected = 5
+        self.assertEqual(actual, expected)
+
+
+unittest.main(verbosity=2)
